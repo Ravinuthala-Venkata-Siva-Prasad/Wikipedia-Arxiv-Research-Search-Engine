@@ -27,6 +27,5 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git remote add huggingface https://venkatasivaprasad:$HF_TOKEN@huggingface.co/spaces/venkatasivaprasad/Wikipedia-and-arXiv-Research-Search-Engine
-
+          git remote add huggingface https://venkatasivaprasad:$HF_TOKEN@huggingface.co/spaces/venkatasivaprasad/Wikipedia_Arxiv_Research_Search_Engine
           git push huggingface HEAD:main --force
