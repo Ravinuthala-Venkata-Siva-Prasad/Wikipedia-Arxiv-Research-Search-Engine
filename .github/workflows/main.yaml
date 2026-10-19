@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
@@ -19,4 +20,9 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git push https://venkatasivaprasad:$HF_TOKEN@huggingface.co/spaces/venkatasivaprasad/Wikipedia-and-arXiv-Research-Search-Engine main
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git remote add huggingface https://venkatasivaprasad:$HF_TOKEN@huggingface.co/spaces/venkatasivaprasad/Wikipedia-and-arXiv-Research-Search-Engine
+
+          git push huggingface HEAD:main
