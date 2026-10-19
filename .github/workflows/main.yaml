@@ -1,8 +1,10 @@
-name: Sync to Hugging Face hub
+name: Sync to Hugging Face Hub
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+
   workflow_dispatch:
 
 jobs:
@@ -10,19 +12,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout GitHub repository
+      - name: Checkout GitHub Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
 
-      - name: Push to Hugging Face Hub
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      - name: Configure Git
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
+      - name: Push to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
           git remote add huggingface https://venkatasivaprasad:$HF_TOKEN@huggingface.co/spaces/venkatasivaprasad/Wikipedia-and-arXiv-Research-Search-Engine
 
-          git push huggingface HEAD:main
+          git push huggingface HEAD:main --force
